@@ -3,7 +3,6 @@ import pandas as pd
 import numpy as np
 import matplotlib.cm as cm
 import matplotlib.pyplot as plt
-import openpyxl
 
 # Load the Excel file
 '''@st.cache_data
@@ -28,7 +27,8 @@ def determine_term(s):
 
 # Main function to filter and plot timetable
 def get_timetable(course_codes, selected_term):
-    df = pd.read_excel('2024-25_class_timetable_20240830.xlsx')
+    #df = pd.read_excel('2024-25_class_timetable_20240830.xlsx')
+    df = pd.read_csv('2024-25_class_timetable_20240830.csv')
     df.columns = df.columns.str.strip()
     
     df['weekday'] = df.apply(calculate_output, axis=1)
@@ -36,6 +36,9 @@ def get_timetable(course_codes, selected_term):
     df['weekday'] = df['weekday'].astype(int)
     
     df['term'] = df['TERM'].apply(determine_term)
+
+    df['START TIME'] = pd.to_datetime(df['START TIME'], format='%H:%M', errors='coerce').dt.time
+    df['END TIME'] = pd.to_datetime(df['END TIME'], format='%H:%M', errors='coerce').dt.time
     
     desired = ['term', 'COURSE CODE', 'COURSE TITLE', 'CLASS SECTION', 'weekday', 'START TIME', 'END TIME', 'VENUE']
     df = df[desired].drop_duplicates().reset_index(drop=True)
