@@ -5,10 +5,10 @@ import matplotlib.cm as cm
 import matplotlib.pyplot as plt
 
 # Load the Excel file
-@st.cache_data
+'''@st.cache_data
 def load_data():
     df = pd.read_excel('2024-25_class_timetable_20240830.xlsx')
-    return df
+    return df'''
 
 # Function to calculate weekday
 def calculate_output(row):
@@ -27,7 +27,7 @@ def determine_term(s):
 
 # Main function to filter and plot timetable
 def get_timetable(course_codes, selected_term):
-    df = load_data()
+    df = pd.read_excel('2024-25_class_timetable_20240830.xlsx')
     df.columns = df.columns.str.strip()
     
     df['weekday'] = df.apply(calculate_output, axis=1)
