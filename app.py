@@ -77,7 +77,7 @@ def plot_timetable(filtered_df):
     plt.yticks(ticks=range(0, 600, 60), labels=[f"{h}:00" for h in range(9, 19)])
     
     plt.xlim(0.5, 5.5)
-    plt.ylim(0, 600-60)
+    plt.ylim(0, 600)
     plt.gca().invert_yaxis()
     plt.title('Class Timetable')
     plt.xlabel('Weekday')
